@@ -6,7 +6,7 @@
 
 ## 2ο Παραδοτέο (έως και Κυριακή 15/04)
 Γράφουμε μόνο στα αρχεία: 
-- [] move.cpp 
-- [] piece.cpp 
-- [] player.cpp 
-- [] square.cpp
+- [ ] move.cpp 
+- [ ] piece.cpp 
+- [ ] player.cpp 
+- [ ] square.cpp

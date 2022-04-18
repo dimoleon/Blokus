@@ -7,6 +7,12 @@
 ## 2ο Παραδοτέο (έως και Κυριακή 15/05)
 Γράφουμε μόνο στα αρχεία: 
 - [ ] move.cpp 
+    - [ ] Move()
+    - [ ] getPiece()
+    - [ ] getX()
+    - [ ] getY()
+    - [ ] getOrientation()
+    - [ ] getFlip()
 - [ ] piece.cpp 
 - [ ] player.cpp 
 - [ ] square.cpp

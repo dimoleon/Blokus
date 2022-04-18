@@ -6,13 +6,36 @@
 
 ## 2ο Παραδοτέο (έως και Κυριακή 15/05)
 Γράφουμε μόνο στα αρχεία: 
-- [ ] move.cpp 
+1. move.cpp 
     - [ ] Move()
     - [ ] getPiece()
     - [ ] getX()
     - [ ] getY()
     - [ ] getOrientation()
     - [ ] getFlip()
-- [ ] piece.cpp 
-- [ ] player.cpp 
-- [ ] square.cpp
+2. piece.cpp 
+    - [ ] Piece()
+    - [ ] getId()
+    - [ ] getPlayer()
+    - [ ] setPlaced()
+    - [ ] isPlaced() 
+    - [ ] getSize() 
+    - [ ] getSquare() 
+    - [ ] squareHasPiece()
+    - [ ] rotatePieceClockwise()
+    - [ ] rotatePiece()
+    - [ ] flipPiece()
+3. player.cpp 
+    - [ ] Player()
+    - [ ] getName()
+    - [ ] getPiece() 
+    - [ ] getNumberOfAvailablePieces() 
+4. square.cpp
+    - [ ] Square() 
+    - [ ] setCoordinates() 
+    - [ ] getX() 
+    - [ ] getY() 
+    - [ ] addPiece() 
+    - [ ] removePiece() 
+    - [ ] hasPiece() 
+    - [ ] getPlayer() 

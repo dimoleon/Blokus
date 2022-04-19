@@ -14,7 +14,7 @@
     - [ ] `getOrientation()`
     - [ ] `getFlip()`
 2. piece.cpp 
-    - [ ] `Piece()`
+    - [ ] `Piece()` x 2
     - [ ] `getId()`
     - [ ] `getPlayer()`
     - [ ] `setPlaced()`

@@ -18,9 +18,9 @@
     - [ ] `getId()`
     - [ ] `getPlayer()`
     - [ ] `setPlaced()`
-    - [ ] `isPlaced() `
-    - [ ] `getSize() `
-    - [ ] `getSquare() `
+    - [ ] `isPlaced()`
+    - [ ] `getSize()`
+    - [ ] `getSquare()`
     - [ ] `squareHasPiece()`
     - [ ] `rotatePieceClockwise()`
     - [ ] `rotatePiece()`
@@ -28,15 +28,15 @@
 3. player.cpp 
     - [ ] `Player()`
     - [ ] `getName()`
-    - [ ] `getPiece() `
-    - [ ] `getNumberOfAvailablePieces() `
+    - [ ] `getPiece()`
+    - [ ] `getNumberOfAvailablePieces()`
 4. square.cpp
-    - [ ] `Square() `
-    - [ ] `setCoordinates() `
-    - [ ] `getX() `
-    - [ ] `getY() `
-    - [ ] `addPiece() `
-    - [ ] `removePiece() `
-    - [ ] `hasPiece() `
-    - [ ] `getPlayer() `
+    - [ ] `Square()`
+    - [ ] `setCoordinates()`
+    - [ ] `getX()`
+    - [ ] `getY()`
+    - [ ] `addPiece()`
+    - [ ] `removePiece()`
+    - [ ] `hasPiece()`
+    - [ ] `getPlayer()`
 

@@ -8,34 +8,35 @@
 Γράφουμε μόνο στα αρχεία: 
 1. move.cpp 
     - [ ] `Move()`
-    - [ ] getPiece()
-    - [ ] getX()
-    - [ ] getY()
-    - [ ] getOrientation()
-    - [ ] getFlip()
+    - [ ] `getPiece()`
+    - [ ] `getX()`
+    - [ ] `getY()`
+    - [ ] `getOrientation()`
+    - [ ] `getFlip()`
 2. piece.cpp 
-    - [ ] Piece()
-    - [ ] getId()
-    - [ ] getPlayer()
-    - [ ] setPlaced()
-    - [ ] isPlaced() 
-    - [ ] getSize() 
-    - [ ] getSquare() 
-    - [ ] squareHasPiece()
-    - [ ] rotatePieceClockwise()
-    - [ ] rotatePiece()
-    - [ ] flipPiece()
+    - [ ] `Piece()`
+    - [ ] `getId()`
+    - [ ] `getPlayer()`
+    - [ ] `setPlaced()`
+    - [ ] `isPlaced() `
+    - [ ] `getSize() `
+    - [ ] `getSquare() `
+    - [ ] `squareHasPiece()`
+    - [ ] `rotatePieceClockwise()`
+    - [ ] `rotatePiece()`
+    - [ ] `flipPiece()`
 3. player.cpp 
-    - [ ] Player()
-    - [ ] getName()
-    - [ ] getPiece() 
-    - [ ] getNumberOfAvailablePieces() 
+    - [ ] `Player()`
+    - [ ] `getName()`
+    - [ ] `getPiece() `
+    - [ ] `getNumberOfAvailablePieces() `
 4. square.cpp
-    - [ ] Square() 
-    - [ ] setCoordinates() 
-    - [ ] getX() 
-    - [ ] getY() 
-    - [ ] addPiece() 
-    - [ ] removePiece() 
-    - [ ] hasPiece() 
-    - [ ] getPlayer() 
+    - [ ] `Square() `
+    - [ ] `setCoordinates() `
+    - [ ] `getX() `
+    - [ ] `getY() `
+    - [ ] `addPiece() `
+    - [ ] `removePiece() `
+    - [ ] `hasPiece() `
+    - [ ] `getPlayer() `
+

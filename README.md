@@ -15,11 +15,11 @@
     - [ ] `getFlip()`
 2. piece.cpp 
     - [ ] `Piece()` x 2
-    - [ ] `getId()`
-    - [ ] `getPlayer()`
-    - [ ] `setPlaced()`
-    - [ ] `isPlaced()`
-    - [ ] `getSize()`
+    - [x] `getId()`
+    - [x] `getPlayer()`
+    - [x] `setPlaced()`
+    - [x] `isPlaced()`
+    - [x] `getSize()`
     - [ ] `getSquare()`
     - [ ] `squareHasPiece()`
     - [ ] `rotatePieceClockwise()`
@@ -40,4 +40,3 @@
     - [ ] `hasPiece()`
     - [ ] `getPlayer()`
 
-test 1 

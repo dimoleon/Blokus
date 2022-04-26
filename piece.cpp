@@ -9,6 +9,9 @@ Piece::Piece() {
     pieceSize = 5; 
 }
 
+// Piece::Piece(int pieceId, char piecePlayer, char pieceSquares[5][5]) {
+//
+// }
 
 int Piece::getId() {
     return id; 

@@ -40,3 +40,4 @@
     - [ ] `hasPiece()`
     - [ ] `getPlayer()`
 
+test 1 

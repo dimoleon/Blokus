@@ -22,7 +22,7 @@
     - [x] `getSize()`
     - [ ] `getSquare()`
     - [ ] `squareHasPiece()`
-    - [ ] `rotatePieceClockwise()`
+    - [x] `rotatePieceClockwise()`
     - [ ] `rotatePiece()`
     - [ ] `flipPiece()`
 3. player.cpp 

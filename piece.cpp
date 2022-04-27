@@ -45,3 +45,32 @@ int Piece::getSize() {
     return pieceSize; 
 }
 
+//getSquare
+//squareHasPiece
+
+void Piece::rotatePieceClockwise() {
+    for(int i = 0; i < 2; i++) {
+        for(int j = i; j < 4 - i; j++) {
+            bool help = squareHasPiece(i, j);
+            squares[i][j].removePiece();
+            if(squareHasPiece(4 - j, i)) {
+                squares[i][j].addPiece(player); 
+            }
+            squares[4 - j][i].removePiece(); 
+            if(squareHasPiece(4 - i, 4 - j)) {
+                squares[4 - j][i].addPiece(player); 
+            }
+            squares[4 - i][4 - j].removePiece(); 
+            if(squareHasPiece(j, 4 - i)) {
+                squares[4 - i][4 - j].addPiece(player); 
+            }
+            squares[j][4 - i].removePiece();
+            if(help) {
+                squares[j][4 - i].addPiece(player); 
+            }
+        }
+    }
+}
+
+//rotatePiece
+//flipePiece

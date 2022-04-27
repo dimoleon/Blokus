@@ -20,11 +20,11 @@
     - [x] `setPlaced()`
     - [x] `isPlaced()`
     - [x] `getSize()`
-    - [ ] `getSquare()`
-    - [ ] `squareHasPiece()`
+    - [x] `getSquare()`
+    - [x] `squareHasPiece()`
     - [x] `rotatePieceClockwise()`
-    - [ ] `rotatePiece()`
-    - [ ] `flipPiece()`
+    - [x] `rotatePiece()`
+    - [x] `flipPiece()`
 3. player.cpp 
     - [x] `Player()`
     - [x] `getName()`

@@ -18,7 +18,7 @@ Piece::Piece(int pieceId, char piecePlayer, char pieceSquares[5][5]) {
     for(int i = 0; i < 5; i++) {
         for(int j = 0; j < 5; j++) {
             squares[i][j].setCoordinates(i, j);
-            if(pieceSquares[i][j] == 'o') {
+            if(pieceSquares[i][j] != '-') {
                 squares[i][j].addPiece(piecePlayer);
             }
         }
@@ -45,18 +45,12 @@ int Piece::getSize() {
     return pieceSize;
 }
 
-//getSquare
 Square Piece::getSquare(int x, int y){
     return squares[x][y];
 }
-//squareHasPiece
+
 bool Piece::squareHasPiece(int x, int y){
-if(squares[x][y].hasPiece()==false)
-{
-  return false;
-}
-else
-    return true;
+    return squares[x][y].hasPiece(); 
 }
 
 void Piece::rotatePieceClockwise() {
@@ -83,38 +77,41 @@ void Piece::rotatePieceClockwise() {
     }
 }
 
-//rotatePiece
 void Piece::rotatePiece(char orientation){
     switch(orientation)
     {
-    case 'u':
-        break;
-    case 'r':
-        rotatePieceClockwise();
-        break;
-    case 'd':
-        rotatePieceClockwise();
-        rotatePieceClockwise();
-        break;
-    case 'l':
-        rotatePieceClockwise();
-        rotatePieceClockwise();
-        rotatePieceClockwise();
-        break;
+        case 'u':
+            break;
+        case 'r':
+            rotatePieceClockwise();
+            break;
+        case 'd':
+            rotatePieceClockwise();
+            rotatePieceClockwise();
+            break;
+        case 'l':
+            rotatePieceClockwise();
+            rotatePieceClockwise();
+            rotatePieceClockwise();
+            break;
     }
+}
 
-}
-//flipPiece
 void Piece::flipPiece(){
-for(int i=0; i<=4; i++)
-{
-   for(int j=0; j<2; j++)
-   {
-       if(squareHasPiece(i,j)){
-        square[i,4 - j].addPiece(player);
-       }
-       square[i,j].removePiece();
-   }
-}
+    for(int i=0; i<=4; i++)
+    {
+        for(int j=0; j<2; j++)
+        {
+            bool help = squareHasPiece(i, 4 - j);
+            squares[i][4 - j].removePiece(); 
+            if(squareHasPiece(i,j)){
+                squares[i][4 - j].addPiece(player);
+            }
+            squares[i][j].removePiece();
+            if(help) {
+                squares[i][j].addPiece(player);
+            }
+        }
+    }
 }
 

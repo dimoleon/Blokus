@@ -11,18 +11,18 @@ Player::Player(int playerId)
     createPieces();
 }
 
-string Player::getName() const
+string Player::getName()
 {
    return name;
 }
 
-Piece Player::Piece getPiece(int index) const
+Piece Player::Piece getPiece(int index)
 {
     return Piece(index, id, allspieces[index-1]);
 
 }
 
-int Player::getNumberOfAvailablePieces() const
+int Player::getNumberOfAvailablePieces()
 {
     return 21-numPlacedPieces;
 }

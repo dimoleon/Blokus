@@ -26,10 +26,10 @@
     - [ ] `rotatePiece()`
     - [ ] `flipPiece()`
 3. player.cpp 
-    - [ ] `Player()`
-    - [ ] `getName()`
-    - [ ] `getPiece()`
-    - [ ] `getNumberOfAvailablePieces()`
+    - [x] `Player()`
+    - [x] `getName()`
+    - [x] `getPiece()`
+    - [x] `getNumberOfAvailablePieces()`
 4. square.cpp
     - [ ] `Square()`
     - [ ] `setCoordinates()`

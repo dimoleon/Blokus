@@ -8,6 +8,10 @@ Player::Player(int playerId)
 {
     id=playerId;
     numPlacedPieces=0;
+    if(playerId==0)
+        name="Player 1";
+    else if(playerId==1)
+        name="Player 2";
     createPieces();
 }
 
@@ -16,8 +20,9 @@ string Player::getName()
    return name;
 }
 
+Piece Player::getPiece(int index)
 {
-    return Piece(index, id, allspieces[index-1]);
+    return pieces[index-1];
 
 }
 

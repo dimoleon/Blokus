@@ -7,12 +7,12 @@
 ## 2ο Παραδοτέο (έως και Κυριακή 15/05)
 Γράφουμε μόνο στα αρχεία: 
 1. move.cpp 
-    - [ ] `Move()`
-    - [ ] `getPiece()`
-    - [ ] `getX()`
-    - [ ] `getY()`
-    - [ ] `getOrientation()`
-    - [ ] `getFlip()`
+    - [x] `Move()`
+    - [x] `getPiece()`
+    - [x] `getX()`
+    - [x] `getY()`
+    - [x] `getOrientation()`
+    - [x] `getFlip()`
 2. piece.cpp 
     - [x] `Piece()` x 2
     - [x] `getId()`

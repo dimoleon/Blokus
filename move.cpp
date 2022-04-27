@@ -7,6 +7,7 @@ Move::Move(Piece movePiece, int moveX, int moveY, char moveOrientation, char mov
     x=moveX;
     y=moveY;
     orientation=moveOrientation;
+    flip=moveFlip;
 
 }
 Piece Move::getPiece()

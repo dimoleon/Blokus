@@ -28,7 +28,7 @@ char Square::getPlayer(){
 }
 
 bool Square::hasPiece(){
-    if(player=='#' or player=='O'){
+    if(player=='#' || player=='O'){
         return true;
     }
     return false;

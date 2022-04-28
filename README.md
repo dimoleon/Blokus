@@ -31,12 +31,12 @@
     - [x] `getPiece()`
     - [x] `getNumberOfAvailablePieces()`
 4. square.cpp
-    - [ ] `Square()`
-    - [ ] `setCoordinates()`
-    - [ ] `getX()`
-    - [ ] `getY()`
-    - [ ] `addPiece()`
-    - [ ] `removePiece()`
-    - [ ] `hasPiece()`
-    - [ ] `getPlayer()`
+    - [x] `Square()`
+    - [x] `setCoordinates()`
+    - [x] `getX()`
+    - [x] `getY()`
+    - [x] `addPiece()`
+    - [x] `removePiece()`
+    - [x] `hasPiece()`
+    - [x] `getPlayer()`
 

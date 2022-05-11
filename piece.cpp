@@ -1,7 +1,6 @@
 #include "piece.h"
 
-// TODO: Implement here the methods of Piece
-
+// first constructor
 Piece::Piece() {
     id = -1;
     placed = false;
@@ -9,6 +8,7 @@ Piece::Piece() {
     pieceSize = 5;
 }
 
+// second constructor 
 Piece::Piece(int pieceId, char piecePlayer, char pieceSquares[5][5]) {
     id = pieceId;
     player = piecePlayer;
@@ -18,6 +18,7 @@ Piece::Piece(int pieceId, char piecePlayer, char pieceSquares[5][5]) {
     for(int i = 0; i < 5; i++) {
         for(int j = 0; j < 5; j++) {
             squares[i][j].setCoordinates(i, j);
+            // Square constructor defaults to '-'
             if(pieceSquares[i][j] != '-') {
                 squares[i][j].addPiece(piecePlayer);
             }
@@ -53,6 +54,10 @@ bool Piece::squareHasPiece(int x, int y){
     return squares[x][y].hasPiece(); 
 }
 
+//rotates the piece grid by splitting the grid into 
+//independent cycles of length 4.
+//(Each one of them visually forms a square)
+//and rotating them one by one going from the outter to the inner ones. 
 void Piece::rotatePieceClockwise() {
     for(int i = 0; i < 2; i++) {
         for(int j = i; j < 4 - i; j++) {
@@ -97,6 +102,10 @@ void Piece::rotatePiece(char orientation){
     }
 }
 
+//performs the flip by 
+//swapping the ownership of symmetric vertices 
+//with respect to the middle column of the grid consequtively
+//going from the outter to the inner ones
 void Piece::flipPiece(){
     for(int i=0; i<=4; i++)
     {

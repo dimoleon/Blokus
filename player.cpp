@@ -2,8 +2,7 @@
 #include "player.h"
 
 
-
-// TODO: Implement here the methods of Player
+// constructor 
 Player::Player(int playerId)
 {
     id=playerId;
@@ -23,7 +22,6 @@ string Player::getName()
 Piece Player::getPiece(int index)
 {
     return pieces[index-1];
-
 }
 
 int Player::getNumberOfAvailablePieces()

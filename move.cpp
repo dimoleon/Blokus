@@ -1,6 +1,6 @@
 #include "move.h"
 
-// TODO: Implement here the methods of Move
+// constructor
 Move::Move(Piece movePiece, int moveX, int moveY, char moveOrientation, char moveFlip)
 {
     piece=movePiece;
@@ -10,6 +10,7 @@ Move::Move(Piece movePiece, int moveX, int moveY, char moveOrientation, char mov
     flip=moveFlip;
 }
 
+// getters
 Piece Move::getPiece()
 {
     return piece;

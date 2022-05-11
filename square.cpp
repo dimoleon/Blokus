@@ -1,13 +1,11 @@
 #include <iostream>
 #include "square.h"
 
-// TODO: Implement here the methods of Square
-
-Square::Square( ){
+// constructor
+Square::Square(){
    x = -1;
    y = -1;
    player = '-';
-
 }
 
 void Square::setCoordinates(int newX,int newY){

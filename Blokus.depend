@@ -1,0 +1,48 @@
+# depslib dependency file v1.0
+1651055537 source:c:\users\nikip\onedrive\Έγγραφα\github\blokus\board.cpp
+	<iostream>
+	<cstdlib>
+	"board.h"
+
+1650985257 c:\users\nikip\onedrive\Έγγραφα\github\blokus\board.h
+	<string>
+	"piece.h"
+
+1651055542 c:\users\nikip\onedrive\Έγγραφα\github\blokus\piece.h
+	"square.h"
+
+1650985257 c:\users\nikip\onedrive\Έγγραφα\github\blokus\square.h
+	<sstream>
+
+1650985257 source:c:\users\nikip\onedrive\Έγγραφα\github\blokus\main.cpp
+	<iostream>
+	"player.h"
+
+1650985257 c:\users\nikip\onedrive\Έγγραφα\github\blokus\player.h
+	<string>
+	"move.h"
+	"piece.h"
+	"board.h"
+
+1650985257 c:\users\nikip\onedrive\Έγγραφα\github\blokus\move.h
+	"piece.h"
+
+1650985257 source:c:\users\nikip\onedrive\Έγγραφα\github\blokus\move.cpp
+	"move.h"
+
+1651053605 source:c:\users\nikip\onedrive\Έγγραφα\github\blokus\piece.cpp
+	"piece.h"
+
+1650985257 source:c:\users\nikip\onedrive\Έγγραφα\github\blokus\playerpieces.cpp
+	<iomanip>
+	<iostream>
+	"player.h"
+
+1650985257 source:c:\users\nikip\onedrive\Έγγραφα\github\blokus\square.cpp
+	<iostream>
+	"square.h"
+
+1651055263 source:c:\users\nikip\onedrive\Έγγραφα\github\blokus\player.cpp
+	<iostream>
+	"player.h"
+

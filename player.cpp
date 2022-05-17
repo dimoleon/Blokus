@@ -2,7 +2,8 @@
 #include "player.h"
 
 
-// constructor 
+// constructor
+//initializes the player's id and name and creates his pieces
 Player::Player(int playerId)
 {
     id=playerId;

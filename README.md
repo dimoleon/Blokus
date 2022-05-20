@@ -49,7 +49,7 @@
 ## 3ο Παραδοτέο (έως και Παρασκευή 27/05)
 Γράφουμε μόνο στα αρχεία: 
 1. player.cpp 
-    a. Κλάση `Player`
+    * Κλάση `Player`
         - [ ] `Player(int id)`
         - [ ] `~Player()`
         - [ ] `int getId()`
@@ -58,10 +58,10 @@
         - [ ] `Piece* getPiece(int indext)`
         - [ ] `int getNumberOfPlacedPieces()`
         - [ ] `int getNumberOfAvailablePieces`
-    b. Υποκλάση `HumanPlayer`
+    * Υποκλάση `HumanPlayer`
         - [ ] `HumanPlayer(int id)`
         - [ ] `HumanPlayer(int id, string name)`
-    c. Υποκλάση `ComputerPlayer`
+    * Υποκλάση `ComputerPlayer`
         - [ ] `int getRandomPieceId()`
         - [ ] `Orientation getRandomOrientation()`
         - [ ] `Flip getRandomFlip`

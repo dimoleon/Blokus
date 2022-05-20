@@ -33,6 +33,7 @@
 		</Compiler>
 		<Unit filename="board.cpp" />
 		<Unit filename="board.h" />
+		<Unit filename="boardrules.cpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="move.cpp" />
 		<Unit filename="move.h" />

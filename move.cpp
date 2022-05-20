@@ -1,38 +1,33 @@
 #include "move.h"
 
-// constructor
-Move::Move(Piece movePiece, int moveX, int moveY, char moveOrientation, char moveFlip)
-{
-    piece=movePiece;
-    x=moveX;
-    y=moveY;
-    orientation=moveOrientation;
-    flip=moveFlip;
+Move::Move(Piece* piece, int x, int y, Orientation orientation, Flip flip){
+    this->piece = piece;
+    this->x = x;
+    this->y = y;
+    this->orientation = orientation;
+    this->flip = flip;
 }
 
-// getters
-Piece Move::getPiece()
-{
+void Move::setPiece(Piece* piece){
+    this->piece = piece;
+}
+
+Piece* Move::getPiece(){
     return piece;
 }
 
-int Move::getX()
-{
+int Move::getX(){
     return x;
 }
 
-int Move::getY()
-{
+int Move::getY(){
     return y;
 }
 
-char Move::getOrientation()
-{
+Orientation Move::getOrientation(){
     return orientation;
 }
 
-char Move::getFlip()
-{
+Flip Move::getFlip(){
     return flip;
 }
-

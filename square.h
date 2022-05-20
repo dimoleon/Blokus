@@ -16,18 +16,24 @@ private:
 
 public:
     /**
-     * Initializes a square setting its coordinates to -1 and its player character to '-'
-     * as no piece is placed on the square.
+     * Initializes a square setting its coordinates to the ones given and its player character
+     * to '-' as no piece is placed on the square.
+     *
+     * @param x the row of the square.
+     * @param y the column of the square.
      */
-    Square();
+    Square(int x, int y);
 
     /**
-     * Sets the coordinates of this square to the ones given.
+     * Initializes a square setting its coordinates to the ones given and its player character
+     * to the one given, indicating if the square has part of a piece of the first player (#),
+     * the second player (O) or none (-).
      *
-     * @param newx the row of the square to be set.
-     * @param newy the column of the square to be set.
+     * @param x the row of the square.
+     * @param y the column of the square.
+     * @param player char indicating where the square belongs (# for first player, O for second player, - for none).
      */
-    void setCoordinates(int newx, int newy);
+    Square(int x, int y, char player);
 
     /**
      * Returns the row of the square.
@@ -46,9 +52,9 @@ public:
     /**
      * Adds a part of a piece to this square by setting the corresponding player variable to the character given.
      *
-     * @param piecePlayer char denoting which player owns the piece placed on the square ('#' for first or 'O' for second player).
+     * @param player char denoting which player owns the piece placed on the square ('#' for first or 'O' for second player).
      */
-    void addPiece(char piecePlayer);
+    void addPiece(char player);
 
     /**
      * Removes the piece from this square by setting the corresponding variable of the player to the '-' character.
@@ -61,6 +67,14 @@ public:
      * @return true if the square is occupied by a piece, or false otherwise.
      */
     bool hasPiece();
+
+    /**
+     * Checks if the square is occupied by a piece of the given player.
+     *
+     * @param player char denoting if the square belongs to the first ('#') or the second ('O') player.
+     * @return true if the square is occupied by a piece, or false otherwise.
+     */
+    bool hasPiece(char player);
 
     /**
      * Returns the character of the player who owns the piece placed on this square.

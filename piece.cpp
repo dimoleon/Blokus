@@ -1,29 +1,26 @@
+#include <iostream>
 #include "piece.h"
 
-// first constructor
-Piece::Piece() {
-    id = -1;
+Piece::Piece(int id, char player, Square*** squares, int sizeX, int sizeY) {
+    this->id = id;
+    this->player = player;
+    this->squares = squares;
+    this->sizeX = sizeX;
+    this->sizeY = sizeY;
     placed = false;
-    player = '-';
-    pieceSize = 5;
 }
 
-// second constructor 
-Piece::Piece(int pieceId, char piecePlayer, char pieceSquares[5][5]) {
-    id = pieceId;
-    player = piecePlayer;
-    placed = false;
-    pieceSize = 5;
+Piece::~Piece(){
+    deleteSquares();
+}
 
-    for(int i = 0; i < 5; i++) {
-        for(int j = 0; j < 5; j++) {
-            squares[i][j].setCoordinates(i, j);
-            // Square constructor defaults to '-'
-            if(pieceSquares[i][j] != '-') {
-                squares[i][j].addPiece(piecePlayer);
-            }
-        }
+void Piece::deleteSquares(){
+    for (int i = 0; i < sizeX; i++) {
+        for(int j = 0; j < sizeY; j++)
+            delete squares[i][j];
+        delete[] squares[i];
     }
+    delete[] squares;
 }
 
 int Piece::getId() {
@@ -34,6 +31,10 @@ char Piece::getPlayer() {
     return player;
 }
 
+void Piece::setPlaced(bool placed){
+    this->placed = placed;
+}
+
 void Piece::setPlaced() {
     placed = true;
 }
@@ -42,85 +43,84 @@ bool Piece::isPlaced() {
     return placed;
 }
 
-int Piece::getSize() {
-    return pieceSize;
+int Piece::getSizeX(){
+    return sizeX;
 }
 
-Square Piece::getSquare(int x, int y){
+int Piece::getSizeY(){
+    return sizeY;
+}
+
+Square* Piece::getSquare(int x, int y) {
     return squares[x][y];
 }
 
-bool Piece::squareHasPiece(int x, int y){
-    return squares[x][y].hasPiece(); 
+bool Piece::squareHasPiece(int x, int y) {
+    return squares[x][y]->hasPiece();
 }
 
-//rotates the piece grid by splitting the grid into 
-//independent cycles of length 4.
-//(Each one of them visually forms a square)
-//and rotating them one by one going from the outter to the inner ones. 
 void Piece::rotatePieceClockwise() {
-    for(int i = 0; i < 2; i++) {
-        for(int j = i; j < 4 - i; j++) {
-            bool help = squareHasPiece(i, j);
-            squares[i][j].removePiece();
-            if(squareHasPiece(4 - j, i)) {
-                squares[i][j].addPiece(player);
-            }
-            squares[4 - j][i].removePiece();
-            if(squareHasPiece(4 - i, 4 - j)) {
-                squares[4 - j][i].addPiece(player);
-            }
-            squares[4 - i][4 - j].removePiece();
-            if(squareHasPiece(j, 4 - i)) {
-                squares[4 - i][4 - j].addPiece(player);
-            }
-            squares[j][4 - i].removePiece();
-            if(help) {
-                squares[j][4 - i].addPiece(player);
-            }
+    Square*** newSquares = new Square**[sizeY];
+    for (int j = 0; j < sizeY; j++)
+        newSquares[j] = new Square*[sizeX];
+    for (int i = 0; i < sizeX; i++){
+        for (int j = 0; j < sizeY; j++)
+            newSquares[j][sizeX - 1 - i] = new Square(j, sizeX - 1 - i, squares[i][j]->getPlayer());
+    }
+    deleteSquares();
+    squares = newSquares;
+    int temp = sizeX;
+    sizeX = sizeY;
+    sizeY = temp;
+}
+
+void Piece::rotatePiece(Orientation orientation) {
+    switch (orientation) {
+    case LEFT:
+        rotatePieceClockwise();
+    case DOWN:
+        rotatePieceClockwise();
+    case RIGHT:
+        rotatePieceClockwise();
+    case UP:
+        ;
+    }
+}
+
+void Piece::flipPiece() {
+    for (int i = 0; i < sizeX; i++) {
+        for(int j = 0; j < sizeY / 2; j++){
+            char player = squares[i][j]->getPlayer();
+            squares[i][j]->addPiece(squares[i][sizeY-1-j]->getPlayer());
+            squares[i][sizeY-1-j]->addPiece(player);
         }
     }
 }
 
-void Piece::rotatePiece(char orientation){
-    switch(orientation)
-    {
-        case 'u':
-            break;
-        case 'r':
-            rotatePieceClockwise();
-            break;
-        case 'd':
-            rotatePieceClockwise();
-            rotatePieceClockwise();
-            break;
-        case 'l':
-            rotatePieceClockwise();
-            rotatePieceClockwise();
-            rotatePieceClockwise();
-            break;
-    }
-}
-
-//performs the flip by 
-//swapping the ownership of symmetric vertices 
-//with respect to the middle column of the grid consequtively
-//going from the outter to the inner ones
-void Piece::flipPiece(){
-    for(int i=0; i<=4; i++)
-    {
-        for(int j=0; j<2; j++)
-        {
-            bool help = squareHasPiece(i, 4 - j);
-            squares[i][4 - j].removePiece(); 
-            if(squareHasPiece(i,j)){
-                squares[i][4 - j].addPiece(player);
-            }
-            squares[i][j].removePiece();
-            if(help) {
-                squares[i][j].addPiece(player);
-            }
+string Piece::toString() {
+    stringstream sstm;
+    for(int i = 0; i < 5; i++) {
+        for(int j = 0; j < 4; j++){
+            if (i < sizeX && j < sizeY)
+                sstm << ((squares[i][j]->getPlayer() == '-') ? ' ' : squares[i][j]->getPlayer()) << " ";
+            else
+                sstm << "  ";
         }
+        if (i < sizeX && sizeY == 5)
+            sstm << ((squares[i][sizeY - 1]->getPlayer() == '-') ? ' ' : squares[i][sizeY - 1]->getPlayer()) << "\n";
+        else
+            sstm << " \n";
     }
-}
+    string result = sstm.str();
+    return result;
+};
 
+Piece* Piece::deepCopy(){
+    Square*** newSquares = new Square**[sizeX];
+    for(int i = 0; i < sizeX; i++) {
+        newSquares[i] = new Square*[sizeY];
+        for(int j = 0; j < sizeY; j++)
+            newSquares[i][j] = new Square(i, j, squares[i][j]->getPlayer());
+    }
+    return new Piece(id, player, newSquares, sizeX, sizeY);
+}

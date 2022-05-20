@@ -1,19 +1,19 @@
 #include <iostream>
 #include "square.h"
 
-// constructor
-Square::Square(){
-   x = -1;
-   y = -1;
-   player = '-';
+Square::Square(int x, int y){
+    this->x = x;
+    this->y = y;
+    player = '-';
 }
 
-void Square::setCoordinates(int newX,int newY){
-   x= newX;
-   y= newY;
+Square::Square(int x, int y, char player){
+    this->x = x;
+    this->y = y;
+    this->player = player;
 }
 
-int Square::getX(){
+int Square::getX() {
     return x;
 }
 
@@ -21,21 +21,22 @@ int Square::getY(){
     return y;
 }
 
+void Square::addPiece(char player) {
+    this->player = player;
+}
+
 char Square::getPlayer(){
-     return player;
+    return player;
 }
 
-bool Square::hasPiece(){
-    if(player=='#' || player=='O'){
-        return true;
-    }
-    return false;
+void Square::removePiece() {
+    player = '-';
 }
 
-void Square::addPiece(char piecePlayer){
-   player = piecePlayer;
+bool Square::hasPiece() {
+    return player != '-';
 }
 
-void Square::removePiece(){
-   player = '-';
+bool Square::hasPiece(char player){
+    return this->player == player;
 }

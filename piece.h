@@ -4,6 +4,16 @@
 #include "square.h"
 
 /**
+ * Enumeration for the orientation of the piece
+ */
+enum Orientation {UP, RIGHT, DOWN, LEFT};
+
+/**
+ * Enumeration for the flip of the piece
+ */
+enum Flip {NO, YES};
+
+/**
  * Class that implements a piece of the game.
  */
 class Piece {
@@ -11,29 +21,33 @@ private:
     int id;
     bool placed; // boolean denoting if this piece has been placed on the board (true) or not (false)
     char player; // char denoting the player that owns this pieces, '#' for the first player, 'O' for the second player, '-' for none
-    int pieceSize; // the size dimension of the piece, which must always be equal to 5 (pieces are stored in a 5 x 5 area)
-    Square squares[5][5]; // the squares of the piece
+    int sizeX; // the number of rows of the piece.
+    int sizeY; // the number of columns of the piece.
+    Square*** squares; // the squares of the piece
 
 public:
     /**
-     * Initializes a piece setting its id to -1, its size to 5 and its player to '-'.
-     * The piece is initially is not placed.
-     */
-    Piece();
-
-    /**
      * Initializes a piece given its id, setting its size to 5 and initializing its squares.
-     * For each square one must set the coordinates (x, y) and the char of the player.
+     * Note that each square has its coordinates (x, y) and the char of the player.
      * We must also set that the piece is initially is not placed.
      *
-     * Hint: we have to use a loop over all squares, and for each individual square we have to set its x and its y, and call
-     * its addPiece method if the square is occupied by the piece (i.e. if the corresponding boolean of pieceSquares is true).
-     *
-     * @param pieceId the id of the piece.
-     * @param piecePlayer char of the player who owns the piece.
-     * @param pieceSquares array of chars indicating whether each square is occupied by a piece (with char piecePlayer) or not.
+     * @param id the id of the piece.
+     * @param player char of the player who owns the piece.
+     * @param squares array of squares os this a piece (with char piecePlayer) or not.
+     * @param sizeX the number of rows of the piece.
+     * @param sizeY the number of columns of the piece.
      */
-    Piece(int pieceId, char piecePlayer, char pieceSquares[5][5]);
+    Piece(int id, char player, Square*** squares, int sizeX, int sizeY);
+
+    /**
+     * Deletes this piece, by deleting the array of squares.
+     */
+    ~Piece();
+
+    /**
+     * Deletes the array of squares of this piece.
+     */
+    void deleteSquares();
 
     /**
      * Returns the id of the piece.
@@ -50,6 +64,13 @@ public:
     char getPlayer();
 
     /**
+     * Sets the placed variable of the piece to the boolean value given.
+     *
+     * @param placed the value to be given to the placed variable.
+     */
+    void setPlaced(bool placed);
+
+    /**
      * Sets the placed variable of the piece to true.
      */
     void setPlaced();
@@ -62,11 +83,18 @@ public:
     bool isPlaced();
 
     /**
-     * Returns the size dimension of the piece.
+     * Returns the number of rows of the piece.
      *
-     * @return the size dimension of the piece.
+     * @return the number of rows of the piece.
      */
-    int getSize();
+    int getSizeX();
+
+    /**
+     * Returns the number of columns of the piece.
+     *
+     * @return the number of columns of the piece.
+     */
+    int getSizeY();
 
     /**
      * Returns a specific square of the piece given its coordinates.
@@ -75,7 +103,7 @@ public:
      * @param y the column of the square to be returned.
      * @return the square of the piece at row x and column y.
      */
-    Square getSquare(int x, int y);
+    Square* getSquare(int x, int y);
 
     /**
      * Checks whether a specific square has part of the piece given its coordinates.
@@ -89,43 +117,29 @@ public:
     /**
      * Rotates the piece clockwise. An example clockwise rotation is the following:
      *
-     *       Initial state              Rotated
-     *         - # - - -               - - # - -
-     *         - # - - -               - - # # #
-     *         # # - - -      ---->    - - - - -
-     *         - - - - -               - - - - -
-     *         - - - - -               - - - - -
-     *
-     * Warning: Each square has three variables, two for its coordinates (integers x and y) and one for its ownership (char player).
-     *          The resulting piece squares must keep the correct coordinates, only the ownership of each square should change!
-     * Hint: The rotation can be done in various ways. What is important is that the final result is placed in array squares of this class.
+     *    Initial state         Rotated
+     *         - #               # - -
+     *         - #      ---->    # # #
+     *         # #
      */
     void rotatePieceClockwise();
 
     /**
-     * Rotates the piece according to the orientation received as input. Orientation 'u' means that the piece should not be
-     * rotated at all, 'r' means that the piece must be rotated clockwise one time, 'd' means that it must be rotated clockwise
-     * two times, and 'l' means that it must be rotated clockwise three times.
+     * Rotates the piece according to the orientation received as input. Orientation UP means that the piece should not be
+     * rotated at all, RIGHT means that the piece must be rotated clockwise one time, DOWN means that it must be rotated clockwise
+     * two times, and LEFT means that it must be rotated clockwise three times.
      *
-     * Hint: We can call the rotatePieceClockwise method here.
-     *
-     * @param x the row of the square to be returned.
+     * @param orientation the orientation of the square to be returned.
      */
-    void rotatePiece(char orientation);
+    void rotatePiece(Orientation orientation);
 
     /**
      * Flips the piece horizontally. An example horizontal flip is the following:
      *
-     *       Initial state              Flipped
-     *         - # - - -               - - - # -
-     *         - # - - -               - - - # -
-     *         # # - - -      ---->    - - - # #
-     *         - - - - -               - - - - -
-     *         - - - - -               - - - - -
-     *
-     * Warning: Each square has three variables, two for its coordinates (integers x and y) and one for its ownership (char player).
-     *          The resulting piece squares must keep the correct coordinates, only the ownership of each square should change!
-     * Hint: The flip can be done in various ways. What is important is that the final result is placed in array squares of this class.
+     *    Initial state          Flipped
+     *         - #                 # -
+     *         - #      ---->      # -
+     *         # #                 # #
      */
     void flipPiece();
 
@@ -135,16 +149,15 @@ public:
      *
      * @return the piece as a string.
      */
-    string toString() {
-        stringstream sstm;
-        for(int i = 0; i < 5; i++) {
-            for(int j = 0; j < 4; j++)
-                sstm << squares[i][j].getPlayer() << " ";
-            sstm << squares[i][4].getPlayer() << "\n";
-        }
-        string result = sstm.str();
-        return result;
-    };
+    string toString();
+
+    /**
+     * Returns a copy of this piece. The copy contains a new array of squares that has the same values as the
+     * squares of this piece. After calling this function, it is important to delete the newly created piece.
+     *
+     * @return a new piece that is a copy of this piece.
+     */
+    Piece* deepCopy();
 };
 
 #endif // PIECE_H

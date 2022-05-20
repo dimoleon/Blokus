@@ -40,3 +40,28 @@
     - [x] `hasPiece()`
     - [x] `getPlayer()`
 
+## 3ο Παραδοτέο (έως και Παρασκευή 27/05)
+Γράφουμε μόνο στα αρχεία: 
+1. player.cpp 
+    a. Κλάση `Player`
+        - [ ] `Player(int id)`
+        - [ ] `~Player()`
+        - [ ] `int getId()`
+        - [ ] `char getSymbol`
+        - [ ] `string getName()`
+        - [ ] `Piece* getPiece(int indext)`
+        - [ ] `int getNumberOfPlacedPieces()`
+        - [ ] `int getNumberOfAvailablePieces`
+    b. Υποκλάση `HumanPlayer`
+        - [ ] `HumanPlayer(int id)`
+        - [ ] `HumanPlayer(int id, string name)`
+    c. Υποκλάση `ComputerPlayer`
+        - [ ] `int getRandomPieceId()`
+        - [ ] `Orientation getRandomOrientation()`
+        - [ ] `Flip getRandomFlip`
+        - [ ] `ComputerPlayer(int id)`
+2. boardrules.cpp 
+    - [ ] `bool pieceCanBePlaced(Piece* piece, int x, int y)`
+    - [ ] `int computeScore(Player* player)`
+
+

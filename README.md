@@ -55,7 +55,7 @@
         - [ ] `int getId()`
         - [ ] `char getSymbol`
         - [ ] `string getName()`
-        - [ ] `Piece* getPiece(int indext)`
+        - [ ] `Piece* getPiece(int index)`
         - [ ] `int getNumberOfPlacedPieces()`
         - [ ] `int getNumberOfAvailablePieces`
     * Υποκλάση HumanPlayer

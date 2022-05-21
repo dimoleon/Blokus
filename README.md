@@ -50,11 +50,11 @@
 Γράφουμε μόνο στα αρχεία: 
 1. player.cpp 
     * Κλάση Player
-        - [ ] `Player(int id)`
-        - [ ] `~Player()`
-        - [ ] `int getId()`
-        - [ ] `char getSymbol()`
-        - [ ] `string getName()`
+        - [x] `Player(int id)`
+        - [x] `~Player()`
+        - [x] `int getId()`
+        - [x] `char getSymbol()`
+        - [x] `string getName()`
         - [ ] `Piece* getPiece(int index)`
         - [ ] `int getNumberOfPlacedPieces()`
         - [ ] `int getNumberOfAvailablePieces()`

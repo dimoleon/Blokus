@@ -1,7 +1,10 @@
 *.exe
 *.layout
 *.depend
+meson.build 
+build/ 
 obj/
 bin/
+.cache/
 
 

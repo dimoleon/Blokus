@@ -53,18 +53,18 @@
         - [ ] `Player(int id)`
         - [ ] `~Player()`
         - [ ] `int getId()`
-        - [ ] `char getSymbol`
+        - [ ] `char getSymbol()`
         - [ ] `string getName()`
         - [ ] `Piece* getPiece(int index)`
         - [ ] `int getNumberOfPlacedPieces()`
-        - [ ] `int getNumberOfAvailablePieces`
+        - [ ] `int getNumberOfAvailablePieces()`
     * Υποκλάση HumanPlayer
         - [ ] `HumanPlayer(int id)`
         - [ ] `HumanPlayer(int id, string name)`
     * Υποκλάση ComputerPlayer
         - [ ] `int getRandomPieceId()`
         - [ ] `Orientation getRandomOrientation()`
-        - [ ] `Flip getRandomFlip`
+        - [ ] `Flip getRandomFlip()`
         - [ ] `ComputerPlayer(int id)`
 2. boardrules.cpp 
     - [ ] `bool pieceCanBePlaced(Piece* piece, int x, int y)`

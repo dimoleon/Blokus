@@ -67,7 +67,7 @@
         - [ ] `Flip getRandomFlip()`
         - [ ] `ComputerPlayer(int id)`
 2. boardrules.cpp 
-    - [ ] `bool pieceCanBePlaced(Piece* piece, int x, int y)`
-    - [ ] `int computeScore(Player* player)`
+    - [x] `bool pieceCanBePlaced(Piece* piece, int x, int y)`
+    - [x] `int computeScore(Player* player)`
 
 

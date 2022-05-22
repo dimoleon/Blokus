@@ -40,4 +40,23 @@ return symbol;
 string Player::getName(){
 return name;
 }
+int ComputerPlayer::getRandomPieceId(){
+	int p;
+	p=1+rand()%21;
+	return p;
+}
 
+Orientation ComputerPlayer::getRandomOrientation(){
+	    int y;
+	    y=rand()%4;
+		return Orientation(y);
+}
+
+Flip ComputerPlayer::getRandomFlip(){
+    int x;
+    x=rand()%2;
+    return Flip(x);
+}
+ComputerPlayer::ComputerPlayer(int id):Player(id){
+
+}

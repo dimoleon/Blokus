@@ -1,6 +1,7 @@
 *.exe
 *.layout
 *.depend
+*.o
 meson.build 
 build/ 
 obj/

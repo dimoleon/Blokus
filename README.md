@@ -62,10 +62,10 @@
         - [ ] `HumanPlayer(int id)`
         - [ ] `HumanPlayer(int id, string name)`
     * Υποκλάση ComputerPlayer
-        - [ ] `int getRandomPieceId()`
-        - [ ] `Orientation getRandomOrientation()`
-        - [ ] `Flip getRandomFlip()`
-        - [ ] `ComputerPlayer(int id)`
+        - [X] `int getRandomPieceId()`
+        - [X] `Orientation getRandomOrientation()`
+        - [X] `Flip getRandomFlip()`
+        - [X] `ComputerPlayer(int id)`
 2. boardrules.cpp 
     - [x] `bool pieceCanBePlaced(Piece* piece, int x, int y)`
     - [x] `int computeScore(Player* player)`

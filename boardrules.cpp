@@ -11,11 +11,15 @@ bool Board::pieceCanBePlaced(Piece* piece, int x, int y) {
 
     //if first move of the current player 
     if (playerHasPlacedNoPieces(player)) {
+        //(4,4) or (9,9) respectively
+        //coordinates of (init, init) with respect to the piece grid
         int init = (player == '#') ? 4 : 9,
             dx = init - x,
             dy = init - y; 
+        //make sure (init, init) is inside the piece grid
         if (dx < 0 || dy < 0 || x + xsize < init || y + ysize < init) 
             return false; 
+        //make sure (init, init) is actually covered by the piece
         if(!piece->squareHasPiece(dx, dy))
             return false; 
         return true; 

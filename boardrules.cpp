@@ -1,9 +1,6 @@
 #include "board.h"
 #include "player.h"
 
-// TODO: Implement here the method pieceCanBePlaced and computeScore of Board
-// Do not implement any other methods of Board (as they are already implemented in file board.cpp)
-
 bool Board::pieceCanBePlaced(Piece* piece, int x, int y) {
     int xsize = piece->getSizeX(), 
         ysize = piece->getSizeY();
@@ -20,7 +17,7 @@ bool Board::pieceCanBePlaced(Piece* piece, int x, int y) {
         if (dx < 0 || dy < 0 || x + xsize < init || y + ysize < init) 
             return false; 
         //make sure (init, init) is actually covered by the piece
-        if(!piece->squareHasPiece(dx, dy))
+        if (!piece->squareHasPiece(dx, dy))
             return false; 
         return true; 
     }
@@ -70,7 +67,7 @@ bool Board::pieceCanBePlaced(Piece* piece, int x, int y) {
             }
         }
     }
-    if(!findcorner)
+    if (!findcorner)
         return false; 
 
     return true; 
@@ -86,7 +83,7 @@ int Board::computeScore(Player* player){
     }
     for(int i = 0; i < 14; i++)
         for(int j = 0; j < 14; j++) 
-            if(squareBelongsToPlayer(i, j, player))
+            if (squareBelongsToPlayer(i, j, player))
                 score++; 
     return score; 
 }

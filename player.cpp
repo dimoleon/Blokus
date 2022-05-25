@@ -51,7 +51,7 @@ int Player::getNumberOfAvailablePieces() {
 }
 
 Piece* Player::getPiece(int index) {
-    return pieces[index - 1]; 
+    return pieces[index]; 
 }
 
 

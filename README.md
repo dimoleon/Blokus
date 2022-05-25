@@ -56,10 +56,10 @@
         - [x] `char getSymbol()`
         - [x] `string getName()`
         - [ ] `Piece* getPiece(int index)`
-        - [ ] `int getNumberOfPlacedPieces()`
-        - [ ] `int getNumberOfAvailablePieces()`
+        - [x] `int getNumberOfPlacedPieces()`
+        - [x] `int getNumberOfAvailablePieces()`
     * Υποκλάση HumanPlayer
-        - [ ] `HumanPlayer(int id)`
+        - [x] `HumanPlayer(int id)`
         - [ ] `HumanPlayer(int id, string name)`
     * Υποκλάση ComputerPlayer
         - [X] `int getRandomPieceId()`

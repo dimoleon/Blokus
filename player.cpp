@@ -40,6 +40,21 @@ return symbol;
 string Player::getName(){
 return name;
 }
+
+int Player::getNumberOfPlacedPieces() {
+    return 21-numPieces;
+}
+
+int Player::getNumberOfAvailablePieces() {
+    return numPieces;
+}
+
+HumanPlayer::HumanPlayer(int id):Player(id) {
+}
+
+HumanPlayer::HumanPlayer(int id, string name):Player(id, name) {
+}
+
 int ComputerPlayer::getRandomPieceId(){
 	int p;
 	p=1+rand()%21;

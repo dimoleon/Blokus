@@ -54,8 +54,6 @@ Piece* Player::getPiece(int index) {
     return pieces[index - 1]; 
 }
 
-HumanPlayer::HumanPlayer(int id):Player(id) {
-}
 
 HumanPlayer::HumanPlayer(int id, string name):Player(id) {
     this->name = name; 

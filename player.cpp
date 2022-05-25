@@ -53,6 +53,7 @@ HumanPlayer::HumanPlayer(int id):Player(id) {
 }
 
 HumanPlayer::HumanPlayer(int id, string name):Player(id, name) {
+    this->name = name;
 }
 
 int ComputerPlayer::getRandomPieceId(){

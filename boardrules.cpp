@@ -1,5 +1,6 @@
 #include "board.h"
 #include "player.h"
+#include <iostream>
 
 bool Board::pieceCanBePlaced(Piece* piece, int x, int y) {
     int xsize = piece->getSizeX(), 
@@ -14,11 +15,11 @@ bool Board::pieceCanBePlaced(Piece* piece, int x, int y) {
             dx = init - x,
             dy = init - y; 
         //make sure (init, init) is inside the piece grid
-        if (dx < 0 || dy < 0 || x + xsize < init || y + ysize < init) 
+        if (dx < 0 || dy < 0 || x + xsize <= init || y + ysize <= init) 
             return false; 
         //make sure (init, init) is actually covered by the piece
         if (!piece->squareHasPiece(dx, dy))
-            return false; 
+            return false;
         return true; 
     }
 

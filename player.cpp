@@ -4,41 +4,42 @@
 
 // TODO: Implement here the methods of Player and all derived classes
 Player::Player(int id){
-this->id = id;
+    this->id = id;
 
-switch(id)
-{
-case 0:
-    name = "Player 1";
-    symbol = '#';
-    break;
-case 1:
-    name = "Player 2";
-    symbol = 'O';
-    break;
-}
+    switch(id)
+    {
+    case 0:
+        name = "Player 1";
+        symbol = '#';
+        break;
+    case 1:
+        name = "Player 2";
+        symbol = 'O';
+        break;
+    }
 
-numPieces = 21;
-createPieces();
+    numPieces = 21;
+    pieces = new Piece*[21]; 
+    createPieces();
 }
 
 Player::~Player(){
-for (int i = 0; i < 21; i++)
-    delete [] pieces[i];
+    for (int i = 0; i < 21; i++)
+        delete pieces[i];
 
-delete [] pieces;
+    delete [] pieces;
 }
 
 int Player::getId(){
-return id;
+    return id;
 }
 
 char Player::getSymbol(){
-return symbol;
+    return symbol;
 }
 
 string Player::getName(){
-return name;
+    return name;
 }
 
 int Player::getNumberOfPlacedPieces() {
@@ -49,10 +50,15 @@ int Player::getNumberOfAvailablePieces() {
     return numPieces;
 }
 
+Piece* Player::getPiece(int index) {
+    return pieces[index - 1]; 
+}
+
 HumanPlayer::HumanPlayer(int id):Player(id) {
 }
 
-HumanPlayer::HumanPlayer(int id, string name):Player(id, name) {
+HumanPlayer::HumanPlayer(int id, string name):Player(id) {
+    this->name = name; 
 }
 
 int ComputerPlayer::getRandomPieceId(){
@@ -62,9 +68,9 @@ int ComputerPlayer::getRandomPieceId(){
 }
 
 Orientation ComputerPlayer::getRandomOrientation(){
-	    int y;
-	    y=rand()%4;
-		return Orientation(y);
+    int y;
+    y=rand()%4;
+    return Orientation(y);
 }
 
 Flip ComputerPlayer::getRandomFlip(){
@@ -72,6 +78,7 @@ Flip ComputerPlayer::getRandomFlip(){
     x=rand()%2;
     return Flip(x);
 }
+
 ComputerPlayer::ComputerPlayer(int id):Player(id){
 
 }

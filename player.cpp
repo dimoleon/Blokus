@@ -19,7 +19,7 @@ Player::Player(int id){
     }
 
     numPieces = 21;
-    pieces = new Piece*[21]; 
+    pieces = new Piece*[numPieces]; 
     createPieces();
 }
 
@@ -51,7 +51,6 @@ int Player::getNumberOfPlacedPieces() {
 }
 
 int Player::getNumberOfAvailablePieces() {
-    // return numPieces;
     return numPieces - getNumberOfPlacedPieces();
 }
 
@@ -83,5 +82,4 @@ Flip ComputerPlayer::getRandomFlip(){
 }
 
 ComputerPlayer::ComputerPlayer(int id):Player(id){
-
 }

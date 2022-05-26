@@ -27,8 +27,9 @@ bool Board::pieceCanBePlaced(Piece* piece, int x, int y) {
     if (x + xsize >= 14 || y + ysize >= 14) {
         return false; 
     }
-    //iterate through all cells of the piece grid
+
     bool findcorner = false; 
+    //iterate through all cells of the piece grid
     for(int i = 0; i < xsize; i++) {
         for(int j = 0; j < ysize; j++) {
             if (piece->squareHasPiece(i, j)) {

@@ -60,7 +60,7 @@
         - [x] `int getNumberOfAvailablePieces()`
     * Υποκλάση HumanPlayer
         - [x] `HumanPlayer(int id)`
-        - [ ] `HumanPlayer(int id, string name)`
+        - [x] `HumanPlayer(int id, string name)`
     * Υποκλάση ComputerPlayer
         - [X] `int getRandomPieceId()`
         - [X] `Orientation getRandomOrientation()`

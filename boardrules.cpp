@@ -1,6 +1,6 @@
 #include "board.h"
 #include "player.h"
-#include <iostream>
+
 
 bool Board::pieceCanBePlaced(Piece* piece, int x, int y) {
     int xsize = piece->getSizeX(), 

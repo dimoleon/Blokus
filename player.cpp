@@ -41,6 +41,10 @@ string Player::getName(){
 return name;
 }
 
+Piece* Player::getPiece(int index) {
+    return pieces[index];
+}
+
 int Player::getNumberOfPlacedPieces() {
     return 21-numPieces;
 }

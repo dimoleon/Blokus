@@ -79,7 +79,7 @@ int Board::computeScore(Player* player){
     if (player->getNumberOfAvailablePieces() == 0) {
         score += 15; 
         //pointer equality, probably works
-        if (getLastPiecePlayedByPlayer(player) == player->getPiece(1))
+        if (getLastPiecePlayedByPlayer(player) == player->getPiece(0))
             score += 5; 
     }
     for(int i = 0; i < 14; i++)

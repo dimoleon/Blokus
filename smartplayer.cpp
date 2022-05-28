@@ -2,7 +2,7 @@
 #include "algorithms.h"
 
 SmartPlayer::SmartPlayer(int id) : Player(id) {
-    name = "Team 000"; // TODO: Change this to your team number e.g. "Team 150"
+    name = "Team 029"; // TODO: Change this to your team number e.g. "Team 150"
 }
 
 Move* SmartPlayer::makeMove(Board* board) {

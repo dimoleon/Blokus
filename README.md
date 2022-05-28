@@ -70,4 +70,15 @@
     - [x] `bool pieceCanBePlaced(Piece* piece, int x, int y)`
     - [x] `int computeScore(Player* player)`
 
+---
+
+## 4ο Παραδοτέο (έως και Τετάρτη 08/06)
+Γράφουμε μόνο στα αρχεία: 
+1. computerplayer.cpp 
+    - [ ] `int evaluateBoard(Board* board)`
+2. algorithms.h 
+    - [ ] `void shuffle(X** my Array, int myArraySize)`
+    - [ ] `X* getElementWithMaxScore(X** myArray, int* myArrayScore, int my ArraySize)`
+
+
 

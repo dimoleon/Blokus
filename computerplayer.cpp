@@ -7,7 +7,18 @@ ComputerPlayer::ComputerPlayer(int id) : Player(id) {
 
 int ComputerPlayer::evaluateBoard(Board* board) {
     // TODO: Implement here the algorithm for evaluating the state of the board
-    return 0;
+    int diff = 0; 
+    for(int i = 0; i < 14; i++) {
+        for(int j = 0; j < 14; j++) {
+            if (board->hasPiece(i, j)) {
+                if (board->squareBelongsToPlayer(i, j, this))
+                    diff++; 
+                else
+                    diff--;
+            }
+        }
+    }
+    return diff;
 }
 
 Move* ComputerPlayer::makeMove(Board* board) {

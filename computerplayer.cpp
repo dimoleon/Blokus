@@ -10,12 +10,16 @@ int ComputerPlayer::evaluateBoard(Board* board) {
     int diff = 0; 
     for(int i = 0; i < 14; i++) {
         for(int j = 0; j < 14; j++) {
-            if (board->hasPiece(i, j)) {
+            /* if (board->hasPiece(i, j)) {
                 if (board->squareBelongsToPlayer(i, j, this))
                     diff++; 
                 else
                     diff--;
-            }
+            } */
+            if (board->squareBelongsToPlayer(i, j, this))
+                diff++; 
+            else if (board->squareBelongsToPlayer(i, j, this->opponent))
+                diff--; 
         }
     }
     return diff;

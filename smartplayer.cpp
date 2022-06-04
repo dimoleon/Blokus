@@ -1,13 +1,32 @@
 #include "smartplayer.h"
 #include "algorithms.h"
-
-// depth of the search tree
-#define DEPTH 10 
+#include "game.h"
+#include <vector>
 
 SmartPlayer::SmartPlayer(int id) : Player(id) {
     // team name
     name = "Team 029"; 
 }
+
+class Node {
+    Node* parent; 
+    vector<Node*> children;
+    Game* game; 
+    int visits; 
+    double winScore; 
+
+public: 
+    Node(); 
+    ~Node(); 
+
+
+    Game** getPossibleStates(); 
+    Node* selectPromisingNode(Node* root); 
+
+    double uctValue(); 
+
+};
+
 
 // monte carlo tree search let's do it baby 
 
@@ -17,21 +36,19 @@ Move* SmartPlayer::makeMove(Board* board) {
     // deepCopy functions of the board, the pieces and the opponent if you plan to try some moves
     
     // create testing pointers 
-    Board* testBoard = board->deepCopy();
-    Player* testPlayer = this->deepCopy(),
-        * testOpponent = this->opponent->deepCopy(); 
-
-    // get array of available moves 
-    int numPossibleMoves; 
-    Move** possibleMoves = testPlayer->getPossibleMoves(testBoard, numPossibleMoves);
-
+    // Board* testBoard = board->deepCopy();
+    // Player* testPlayer = this->deepCopy(),
+    //     * testOpponent = this->opponent->deepCopy(); 
+    //
+    // // get array of available moves 
+    // int numPossibleMoves; 
+    // Move** possibleMoves = testPlayer->getPossibleMoves(testBoard, numPossibleMoves);
     
-    
-     
     // free memory 
-    delete testBoard; 
-    delete testPlayer; 
-    delete testOpponent; 
+    // delete testBoard; 
+    // delete testPlayer; 
+    // delete testOpponent; 
+
 
     return NULL;
 }

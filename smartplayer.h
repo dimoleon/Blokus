@@ -4,52 +4,55 @@
 #include "player.h"
 #include <vector> 
 
-class Node { 
-private: 
+
+class Node {
     Node* parent; 
     Move* contract; 
-    Board* board; 
-    Player* player; 
-    vector<Node*> children; 
     int visits; 
     double winscore; 
+    Board* board; 
+    Player* player; 
+    Player* opponent;
 
-    Move** availableMoves; 
-    int aMsize; 
+    vector<Node*> children; 
+    vector<Move*> untriedMoves; 
 
 public: 
-    Node(Board* board, Player* player, Node* daddy = NULL, Move* contract = NULL); 
+    Node(Board *board, Player* player, Player* opponent, Node* daddy = nullptr, Move* contract = nullptr); 
     ~Node(); 
 
-    int getVisits(); 
-    double getWins(); 
+    void generateUntriedMoves();  
+    void clearUntriedMoves(); 
+    void shuffleUntriedMoves(); 
+
+    int getVisits();
+    double getWinscore(); 
     Node* getParent(); 
-    int getChildrenSize(); 
+    Player* getPlayer(); 
+    Player* getOpponent();
+    Board* getBoard(); 
+    Move* getContract(); 
 
-    void giveBirthToChildren(Player* opponent); 
-    Move** getAllMoves();
+    int getChildrenSize();
+    int getUntriedSize(); 
 
-    Node* findPromisingChild(); 
-    Node* pickRandomChild();
-    
-    double uctValue();
+    bool isLeaf(); 
+    bool isExpandable(); 
     bool isTerminal(); 
+
+    double uctValue(); 
+    Node* uctSelect(); 
+    Node* visitsSelect(); 
+
+    Node* addChild(int index);
+    // Node* addChild(Move* move, Player* opponent);
+
+    void makeMove(int index); 
+    double playoutResult(); 
+    void update(double &result); 
+
 };
 
-class Tree {
-    Node* root; 
-
-public: 
-    Tree(Node* root); 
-    ~Tree(); 
-
-    Node* getRoot(); 
-    void setRoot(Node* newRoot); 
-
-    bool isLeaf(Node* node); 
-
-    void deleteUnused();
-};
 
 /**
  * Class that implements a smart player that plays according to the state of the game.

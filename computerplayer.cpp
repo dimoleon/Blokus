@@ -6,7 +6,16 @@ ComputerPlayer::ComputerPlayer(int id) : Player(id) {
 }
 
 int ComputerPlayer::evaluateBoard(Board* board) {
-    // TODO: Implement here the algorithm for evaluating the state of the board
+    int diff = 0; 
+    for(int i = 0; i < 14; i++) {
+        for(int j = 0; j < 14; j++) {
+            if (board->squareBelongsToPlayer(i, j, this))
+                diff++; 
+            else if (board->squareBelongsToPlayer(i, j, this->opponent))
+                diff--; 
+        }
+    }
+    return diff;   
     return 0;
 }
 

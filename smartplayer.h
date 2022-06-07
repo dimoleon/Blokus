@@ -47,7 +47,7 @@ public:
     Node* addChild();
     // Node* addChild(Move* move, Player* opponent);
 
-    void makeMove(); 
+    void simulateMove(); 
     double playoutResult(); 
     void update(double &result); 
 

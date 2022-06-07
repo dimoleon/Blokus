@@ -1,3 +1,5 @@
+#include <cassert>
+
 #include "smartplayer.h"
 #include "algorithms.h"
 #include <cstdint>
@@ -19,6 +21,8 @@ Node::Node(Board* board, Player* player, Player* opponent, Node* daddy, Move* co
     this->opponent = opponent; 
     this->parent = daddy; 
     this->contract = contract; 
+    visits = 0; 
+    winscore = 0.0; 
     generateUntriedMoves(); 
 }
 
@@ -74,11 +78,13 @@ bool Node::isTerminal() {
 }
 
 Node* Node::addChild() {
-    Move* move = untriedMoves[untriedMoves.size()]; 
+    Move* move = new Move(untriedMoves[untriedMoves.size() - 1]); 
+    // Move* move = untriedMoves[untriedMoves.size()]; 
     Board* boardCopy = board->deepCopy(); 
     Player* playerCopy = player->deepCopy();  
     Player* opponentCopy = opponent->deepCopy();
-    Piece* pieceCopy = move->getPiece(); 
+    Piece* pieceCopy = move->getPiece()->deepCopy(); 
+    // Piece* pieceCopy = move->getPiece();
 
     boardCopy->placePiece(pieceCopy, move->getX(), move->getY(), move->getOrientation(), move->getFlip());     
     Node* newBorn = new Node(boardCopy, opponentCopy, playerCopy, this, move); 
@@ -95,10 +101,11 @@ void Node::generateUntriedMoves() {
     shuffle(aMoves, size);
     // copy(aMoves, aMoves + size, untriedMoves);
     for(int i = 0; i < size; i++) 
-        untriedMoves.push_back(aMoves[i]); 
-    // for(int i = 0; i < size; i++) {}
-    //     delete aMoves[i]; 
-    delete [] aMoves; 
+        untriedMoves.push_back(new Move(aMoves[i])); 
+    for(int i = 0; i < size; i++) {
+        delete aMoves[i];
+    }
+    delete [] aMoves;
 }
 
 void Node::clearUntriedMoves() {
@@ -109,13 +116,11 @@ void Node::shuffleUntriedMoves() {
     // random_shuffle(untriedMoves.begin(), untriedMoves.end()); 
 }
 
-void Node::makeMove() {
-    Move* move = untriedMoves[untriedMoves.size()]; 
+void Node::simulateMove() {
+    Move* move = untriedMoves[untriedMoves.size() - 1]; 
     board->placePiece(move->getPiece(), move->getX(), move->getY(), move->getOrientation(), move->getFlip()); 
     //swap players 
-    Player* temp = player; 
-    player = opponent; 
-    opponent = temp; 
+    swap(player, opponent); 
 }
 
 double Node::uctValue() {
@@ -156,9 +161,11 @@ double Node::playoutResult() {
 Node* Node::visitsSelect() {
     int best = -1;     
     Node* winner; 
-    for (auto & child : children) {
-        best = max(best, child->getVisits()); 
-        winner = child; 
+    for(auto & child : children) {
+        if (child->getVisits() > best) {
+            winner = child; 
+            best = child->getVisits(); 
+        }
     }
     return winner; 
 }
@@ -177,7 +184,6 @@ Move* SmartPlayer::makeMove(Board* board) {
         *testOpponent = this->opponent->deepCopy(); 
 
     Node* root = new Node(testBoard, testPlayer, testOpponent); 
-    //br1
 
     // time keeping 
     auto start = chrono::steady_clock::now(); 
@@ -198,31 +204,42 @@ Move* SmartPlayer::makeMove(Board* board) {
             node = node->addChild();
         }
 
+        // end = chrono::steady_clock::now(); 
+        // cout << chrono::duration_cast<chrono::milliseconds>(end - start).count() << endl; 
         // playout
-        while (!node->isTerminal()) {
+        for(int i = 0; i < 2; i++) {
             node->clearUntriedMoves(); 
+            // cout << node->getUntriedSize() << endl; 
             node->generateUntriedMoves(); 
+            // cout << node->getUntriedSize() << endl << endl;  
+            if (node->isTerminal()) 
+                break; 
             node->shuffleUntriedMoves(); 
-            node->makeMove(); 
+            node->simulateMove(); 
         }
 
         // backpropagate
         double result = node->playoutResult(); 
         while (node != nullptr) {
             node->update(result); 
+            // cout << node->getWinscore() << '/' << node->getVisits() << endl;
             node = node->getParent(); 
         }
 
         end = chrono::steady_clock::now(); 
-        // br 
+        // cout << chrono::duration_cast<chrono::milliseconds>(end - start).count() << endl; 
     }
 
-    Node* winner = root->visitsSelect(); 
-    Move* final = new Move(winner->getContract()); 
+    cout << root->getChildrenSize() << endl; 
+    Move* winner = root->visitsSelect()->getContract(); 
+    Piece* finalPiece = winner->getPiece()->deepCopy();
+    Move* final = new Move(finalPiece, winner->getX(), winner->getY(), winner->getOrientation(), winner->getFlip()); 
     delete testBoard;
     delete testPlayer; 
     delete testOpponent;  
-    delete root; 
+    delete root;
+    // cout << final->getPiece()->getId() << ' ' << final->getX() << ' ' 
+        // << final->getY() << ' ' << final->getOrientation() << ' ' << final->getFlip() << endl; 
 
     return final; 
 }

@@ -5,7 +5,7 @@
 #include <vector> 
 
 
-class Node {
+struct Node {
     Node* parent; 
     Move* contract; 
     int visits; 

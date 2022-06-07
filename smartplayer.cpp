@@ -29,8 +29,8 @@ Node::Node(Board* board, Player* player, Player* opponent, Node* daddy, Move* co
 Node::~Node() {
     children.clear(); 
     untriedMoves.clear(); 
-    children.shrink_to_fit();
-    untriedMoves.shrink_to_fit();
+    // children.shrink_to_fit();
+    // untriedMoves.shrink_to_fit();
 }
 
 int Node::getVisits() {
@@ -78,8 +78,7 @@ bool Node::isTerminal() {
 }
 
 Node* Node::addChild() {
-    Move* move = new Move(untriedMoves[untriedMoves.size() - 1]); 
-    // Move* move = untriedMoves[untriedMoves.size()]; 
+    Move* move = untriedMoves[untriedMoves.size() - 1]; 
     Board* boardCopy = board->deepCopy(); 
     Player* playerCopy = player->deepCopy();  
     Player* opponentCopy = opponent->deepCopy();
@@ -101,10 +100,10 @@ void Node::generateUntriedMoves() {
     shuffle(aMoves, size);
     // copy(aMoves, aMoves + size, untriedMoves);
     for(int i = 0; i < size; i++) 
-        untriedMoves.push_back(new Move(aMoves[i])); 
-    for(int i = 0; i < size; i++) {
-        delete aMoves[i];
-    }
+        untriedMoves.push_back(aMoves[i]); 
+    // for(int i = 0; i < size; i++) {
+    //     delete aMoves[i];
+    // }
     delete [] aMoves;
 }
 
@@ -176,15 +175,10 @@ SmartPlayer::SmartPlayer(int id) : Player(id) {
 }
 
 Move* SmartPlayer::makeMove(Board* board) {
-    // TODO: Implement this function to return a move. You must not make the move on the board
-    // (or change the board, the piece and the opponent in any other way). You can use the
-    // deepCopy functions of the board, the pieces and the opponent if you plan to try some moves
-    Board* testBoard = board->deepCopy(); 
-    Player* testPlayer = this->deepCopy(),
-        *testOpponent = this->opponent->deepCopy(); 
 
-    Node* root = new Node(testBoard, testPlayer, testOpponent); 
-
+    Node* root = new Node(board, this, this->opponent); 
+    // return root->untriedMoves[root->getUntriedSize() - 1];
+    
     // time keeping 
     auto start = chrono::steady_clock::now(); 
     auto end = start; 
@@ -207,7 +201,8 @@ Move* SmartPlayer::makeMove(Board* board) {
         // end = chrono::steady_clock::now(); 
         // cout << chrono::duration_cast<chrono::milliseconds>(end - start).count() << endl; 
         // playout
-        for(int i = 0; i < 2; i++) {
+        // for(int i = 0; i < 8; i++) {
+        while (true) {
             node->clearUntriedMoves(); 
             // cout << node->getUntriedSize() << endl; 
             node->generateUntriedMoves(); 
@@ -232,11 +227,8 @@ Move* SmartPlayer::makeMove(Board* board) {
 
     cout << root->getChildrenSize() << endl; 
     Move* winner = root->visitsSelect()->getContract(); 
-    Piece* finalPiece = winner->getPiece()->deepCopy();
-    Move* final = new Move(finalPiece, winner->getX(), winner->getY(), winner->getOrientation(), winner->getFlip()); 
-    delete testBoard;
-    delete testPlayer; 
-    delete testOpponent;  
+    int winId = winner->getPiece()->getId() - 1; 
+    Move* final = new Move(this->getPiece(winId), winner->getX(), winner->getY(), winner->getOrientation(), winner->getFlip()); 
     delete root;
     // cout << final->getPiece()->getId() << ' ' << final->getX() << ' ' 
         // << final->getY() << ' ' << final->getOrientation() << ' ' << final->getFlip() << endl; 

@@ -36,18 +36,18 @@ public:
     int getChildrenSize();
     int getUntriedSize(); 
 
-    bool isLeaf(); 
-    bool isExpandable(); 
-    bool isTerminal(); 
+    bool isLeaf();
+    bool isFullyExpanded();
+    bool isTerminal();
 
     double uctValue(); 
     Node* uctSelect(); 
     Node* visitsSelect(); 
 
-    Node* addChild(int index);
+    Node* addChild();
     // Node* addChild(Move* move, Player* opponent);
 
-    void makeMove(int index); 
+    void makeMove(); 
     double playoutResult(); 
     void update(double &result); 
 

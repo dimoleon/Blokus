@@ -23,7 +23,10 @@ Node::Node(Board* board, Player* player, Player* opponent, Node* daddy, Move* co
 }
 
 Node::~Node() {
-
+    children.clear(); 
+    untriedMoves.clear(); 
+    children.shrink_to_fit();
+    untriedMoves.shrink_to_fit();
 }
 
 int Node::getVisits() {
@@ -46,20 +49,32 @@ int Node::getUntriedSize() {
     return untriedMoves.size(); 
 }
 
+Move* Node::getContract() {
+    return contract; 
+}
+
+Player* Node::getPlayer() {
+    return player; 
+}
+
+Player* Node::getOpponent() {
+    return opponent;
+}
+
 bool Node::isLeaf() {
     return children.empty(); 
 }
 
-bool Node::isExpandable() {
+bool Node::isFullyExpanded() {
     return untriedMoves.empty();
 }
 
 bool Node::isTerminal() {
-    return isLeaf() && isExpandable(); 
+    return isLeaf() && isFullyExpanded(); 
 }
 
-Node* Node::addChild(int index) {
-    Move* move = untriedMoves[index]; 
+Node* Node::addChild() {
+    Move* move = untriedMoves[untriedMoves.size()]; 
     Board* boardCopy = board->deepCopy(); 
     Player* playerCopy = player->deepCopy();  
     Player* opponentCopy = opponent->deepCopy();
@@ -67,17 +82,23 @@ Node* Node::addChild(int index) {
 
     boardCopy->placePiece(pieceCopy, move->getX(), move->getY(), move->getOrientation(), move->getFlip());     
     Node* newBorn = new Node(boardCopy, opponentCopy, playerCopy, this, move); 
-    untriedMoves.erase(untriedMoves.begin() + index); 
+    // untriedMoves.erase(untriedMoves.begin() + index); 
+    untriedMoves.pop_back(); 
+    children.push_back(newBorn); 
     return newBorn; 
 }
 
 void Node::generateUntriedMoves() {
     int size; 
     Move** aMoves = player->getPossibleMoves(board, size); 
-    copy(aMoves, aMoves + size, untriedMoves); 
-    for (int i = 0; i < size; i++) 
-        delete [] aMoves[i]; 
-    delete aMoves; 
+    // add implemented shuffle here, std::random_shuffle hates me
+    shuffle(aMoves, size);
+    // copy(aMoves, aMoves + size, untriedMoves);
+    for(int i = 0; i < size; i++) 
+        untriedMoves.push_back(aMoves[i]); 
+    // for(int i = 0; i < size; i++) {}
+    //     delete aMoves[i]; 
+    delete [] aMoves; 
 }
 
 void Node::clearUntriedMoves() {
@@ -85,11 +106,11 @@ void Node::clearUntriedMoves() {
 }
 
 void Node::shuffleUntriedMoves() {
-    random_shuffle(untriedMoves.begin(), untriedMoves.end()); 
+    // random_shuffle(untriedMoves.begin(), untriedMoves.end()); 
 }
 
-void Node::makeMove(int index) {
-    Move* move = untriedMoves[index]; 
+void Node::makeMove() {
+    Move* move = untriedMoves[untriedMoves.size()]; 
     board->placePiece(move->getPiece(), move->getX(), move->getY(), move->getOrientation(), move->getFlip()); 
     //swap players 
     Player* temp = player; 
@@ -156,7 +177,7 @@ Move* SmartPlayer::makeMove(Board* board) {
         *testOpponent = this->opponent->deepCopy(); 
 
     Node* root = new Node(testBoard, testPlayer, testOpponent); 
-    
+    //br1
 
     // time keeping 
     auto start = chrono::steady_clock::now(); 
@@ -165,23 +186,24 @@ Move* SmartPlayer::makeMove(Board* board) {
         Node* node = root;
 
         // selection 
-        while (node->isExpandable() && !node->isLeaf()) {
+        while (node->isFullyExpanded() && !node->isLeaf()) {
             node = node->uctSelect(); 
         }
 
         // expansion
-        if (node->isExpandable()) {
+        if (!node->isFullyExpanded()) {
             node->shuffleUntriedMoves(); 
             // Houston, we have a problem
             // make it more efficient
-            node = node->addChild(0);
+            node = node->addChild();
         }
 
         // playout
         while (!node->isTerminal()) {
             node->clearUntriedMoves(); 
             node->generateUntriedMoves(); 
-            node->makeMove(0); 
+            node->shuffleUntriedMoves(); 
+            node->makeMove(); 
         }
 
         // backpropagate
@@ -192,6 +214,7 @@ Move* SmartPlayer::makeMove(Board* board) {
         }
 
         end = chrono::steady_clock::now(); 
+        // br 
     }
 
     Node* winner = root->visitsSelect(); 

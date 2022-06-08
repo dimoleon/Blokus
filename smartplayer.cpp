@@ -1,5 +1,3 @@
-#include <cassert>
-
 #include "smartplayer.h"
 #include "algorithms.h"
 #include <cstdint>
@@ -202,6 +200,7 @@ Move* SmartPlayer::makeMove(Board* board) {
         // cout << chrono::duration_cast<chrono::milliseconds>(end - start).count() << endl; 
         // playout
         // for(int i = 0; i < 8; i++) {
+        int depth = 0; 
         while (true) {
             node->clearUntriedMoves(); 
             // cout << node->getUntriedSize() << endl; 
@@ -211,7 +210,9 @@ Move* SmartPlayer::makeMove(Board* board) {
                 break; 
             node->shuffleUntriedMoves(); 
             node->simulateMove(); 
+            depth++; 
         }
+        cout << "Depth: " << depth << endl; 
 
         // backpropagate
         double result = node->playoutResult(); 
@@ -225,7 +226,7 @@ Move* SmartPlayer::makeMove(Board* board) {
         // cout << chrono::duration_cast<chrono::milliseconds>(end - start).count() << endl; 
     }
 
-    cout << root->getChildrenSize() << endl; 
+    cout << endl << "Children: " << root->getChildrenSize() << " Untried: " << root->getUntriedSize() << endl; 
     Move* winner = root->visitsSelect()->getContract(); 
     int winId = winner->getPiece()->getId() - 1; 
     Move* final = new Move(this->getPiece(winId), winner->getX(), winner->getY(), winner->getOrientation(), winner->getFlip()); 

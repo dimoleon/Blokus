@@ -15,8 +15,8 @@ int main() {
     Game* game = new Game(board, players);
 
     // Initialize players
-    players[0] = new SmartPlayer(0);
-    players[1] = new ComputerPlayer(1);
+    players[1] = new SmartPlayer(1);
+    players[0] = new ComputerPlayer(0);
     players[0]->setOpponent(players[1]);
     players[1]->setOpponent(players[0]);
 

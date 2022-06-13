@@ -1,15 +1,16 @@
 #include "smartplayer.h"
 #include "algorithms.h"
-#include <cstdint>
-#include <vector>
+#include "piece.h"
 #include <cmath> 
-#include <algorithm>
 #include <chrono> 
 
 // square of explore parameter, typically equal to 2
 #define EXPLORE 2
 // maximum allowed time for makeMove in milliseconds
 #define MAXTIME 4000
+
+const int points[21] = {1, 2, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5,
+                        5, 5, 5, 5, 5, 5, 5, 5}; 
 
 Node::Node(Board* board, Player* player, Player* opponent, Node* daddy, Move* contract) {
     player->setOpponent(opponent); 
@@ -109,10 +110,6 @@ void Node::clearUntriedMoves() {
     untriedMoves.clear(); 
 }
 
-void Node::shuffleUntriedMoves() {
-    // random_shuffle(untriedMoves.begin(), untriedMoves.end()); 
-}
-
 void Node::simulateMove() {
     Move* move = untriedMoves[untriedMoves.size() - 1]; 
     board->placePiece(move->getPiece(), move->getX(), move->getY(), move->getOrientation(), move->getFlip()); 
@@ -139,12 +136,12 @@ Node* Node::uctSelect() {
 void Node::update(double &result) {
     visits++; 
     winscore += result; 
-    result = 1 - result; 
+    result = 1 - result;
 }
 
 double Node::playoutResult() {
-    int score1 = board->computeScore(getParent()->getOpponent()); 
-    int score2 = board->computeScore(getParent()->getPlayer()); 
+    int score1 = board->computeScore(getParent()->getPlayer()); 
+    int score2 = board->computeScore(getParent()->getOpponent()); 
     double result; 
     if (score1 > score2) 
         result = 1.0; 
@@ -173,6 +170,14 @@ SmartPlayer::SmartPlayer(int id) : Player(id) {
 }
 
 Move* SmartPlayer::makeMove(Board* board) {
+    static int turns = -1; 
+    turns++; 
+    if (getId() == 0) {
+        if (turns == 0) 
+            return new Move(getPiece(19), 4, 3, RIGHT, YES); 
+        if (turns == 1) 
+            return new Move(getPiece(20), 6, 5, UP, NO);
+    }
 
     Node* root = new Node(board, this, this->opponent); 
     // return root->untriedMoves[root->getUntriedSize() - 1];
@@ -190,17 +195,12 @@ Move* SmartPlayer::makeMove(Board* board) {
 
         // expansion
         if (!node->isFullyExpanded()) {
-            node->shuffleUntriedMoves(); 
-            // Houston, we have a problem
-            // make it more efficient
             node = node->addChild();
         }
 
-        // end = chrono::steady_clock::now(); 
-        // cout << chrono::duration_cast<chrono::milliseconds>(end - start).count() << endl; 
         // playout
-        // for(int i = 0; i < 8; i++) {
         int depth = 0; 
+        // for(int i = 0; i < 8; i++) {
         while (true) {
             node->clearUntriedMoves(); 
             // cout << node->getUntriedSize() << endl; 
@@ -208,7 +208,6 @@ Move* SmartPlayer::makeMove(Board* board) {
             // cout << node->getUntriedSize() << endl << endl;  
             if (node->isTerminal()) 
                 break; 
-            node->shuffleUntriedMoves(); 
             node->simulateMove(); 
             depth++; 
         }
@@ -218,12 +217,10 @@ Move* SmartPlayer::makeMove(Board* board) {
         double result = node->playoutResult(); 
         while (node != nullptr) {
             node->update(result); 
-            // cout << node->getWinscore() << '/' << node->getVisits() << endl;
             node = node->getParent(); 
         }
 
         end = chrono::steady_clock::now(); 
-        // cout << chrono::duration_cast<chrono::milliseconds>(end - start).count() << endl; 
     }
 
     cout << endl << "Children: " << root->getChildrenSize() << " Untried: " << root->getUntriedSize() << endl; 
@@ -231,8 +228,6 @@ Move* SmartPlayer::makeMove(Board* board) {
     int winId = winner->getPiece()->getId() - 1; 
     Move* final = new Move(this->getPiece(winId), winner->getX(), winner->getY(), winner->getOrientation(), winner->getFlip()); 
     delete root;
-    // cout << final->getPiece()->getId() << ' ' << final->getX() << ' ' 
-        // << final->getY() << ' ' << final->getOrientation() << ' ' << final->getFlip() << endl; 
 
     return final; 
 }

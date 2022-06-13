@@ -2,7 +2,6 @@
 *.layout
 *.depend
 *.o
-meson.build 
 build/ 
 obj/
 bin/

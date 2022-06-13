@@ -5,7 +5,7 @@
 #include <vector> 
 
 
-struct Node {
+class Node {
     Node* parent; 
     Move* contract; 
     int visits; 
@@ -23,7 +23,6 @@ public:
 
     void generateUntriedMoves();  
     void clearUntriedMoves(); 
-    void shuffleUntriedMoves(); 
 
     int getVisits();
     double getWinscore(); 
